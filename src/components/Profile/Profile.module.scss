@@ -1,0 +1,91 @@
+.profile_block {
+	position: absolute;
+	z-index: 2;
+	background-color: #f3f3f3;
+	height: 0;
+	overflow: hidden;
+	width: 320px;
+	border-radius: 30px;
+	right: 30px;
+	top: 130px;
+	-webkit-box-shadow: 0px 3px 10px 0px rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 0px 3px 10px 0px rgba(34, 60, 80, 0.2);
+	box-shadow: 0px 3px 10px 0px rgba(34, 60, 80, 0.2);
+
+	
+}
+
+.active {
+	transition: 0.5s;
+	height: 360px;
+}
+
+.profile_content {
+	padding: 20px;
+	font-family: Montserrat;
+	font-weight: 400;
+
+	.title {
+		font-size: 14px;
+	}
+
+	.profile_info {
+		margin-top: 20px;
+		display: inline-flex;
+	}
+
+	.avatar {
+		text-align: center;
+		background: url(../../assets/img/avatar.png);
+		background-repeat: no-repeat;
+		background-size: 60px;
+		width: 80px;
+		height: 80px;
+	}
+
+	.name {
+		font-size: 14px;
+		font-weight: 600;;
+	}
+
+	.your_account {
+		margin-bottom: 8px;
+	}
+
+	.acc_type {
+		margin-top: 3px;
+		font-size: 13px;
+	}
+
+	.email {
+		margin-top: 3px;
+		font-size: 13px;
+	}
+
+	.item {
+		margin-top: 5px;
+		font-size: 12px;
+		font-weight: 600;
+		padding: 4px 8px;
+		border-radius: 20px;
+		cursor: pointer;
+		&:hover {
+			background-color: #e4e4e4;
+
+		}
+	}
+	
+	.logout {
+		margin-top: 45px;
+		font-size: 12px;
+		font-weight: 600;
+		display: inline-block;
+		padding: 5px;
+		border-radius: 20px;
+		transition: 0.3s;
+		&:hover {
+			background-color: #c2c2c2;
+			cursor: pointer;
+		}
+	}
+}

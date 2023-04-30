@@ -1,6 +1,6 @@
 import React from "react";
 import Styles from "./StartPage.module.scss";
-import backGround from "../../../assets/img/страница мейн.png";
+import backGround from "../../assets/img/страница мейн.png";
 
 export default function StartPage() {
   return (

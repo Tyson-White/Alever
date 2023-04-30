@@ -1,9 +1,12 @@
 import React from "react";
+
 import Header from "./components/Header";
 import MainPage from "./pages/ManePage";
 import Filter from "./components/Filter";
-import StartPage from "./pages/ManePage/StartPage";
+import StartPage from "./pages/StartPage";
 import Login from "./components/Login";
+import Register from "./components/Register";
+import Profile from "./components/Profile";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -18,6 +21,8 @@ function App() {
     <div className="App">
       <div className="wrapper">
         <Login />
+        <Register />
+        <Profile />
         <Header />
         <Filter />
         <Routes>

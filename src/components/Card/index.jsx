@@ -1,19 +1,21 @@
 import React from "react";
 import Styles from "./Card.module.scss";
 
-export default function Card() {
+export default function Card({ title, text, imgURL }) {
   const [isActive, setIsActive] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
   return (
     <div className={isActive ? `${Styles.card} ${Styles.active}` : Styles.card}>
-      <img src="./img/post.png" alt="" />
+      <div
+        className={isActive ? `${Styles.bg} ${Styles.active}` : Styles.bg}
+      ></div>
+      <img src={imgURL} alt="" />
       <div className={Styles.textfield}>
-        <div className={Styles.title}>Сегодня сделала утку</div>
+        <div className={Styles.title}>{title}</div>
         <div
           className={isActive ? `${Styles.text} ${Styles.open}` : Styles.text}
         >
-          Сегодня ходила на урок технологии и там мы с классом сделали таких
-          милых уточек...
+          {text}
         </div>
       </div>
       <div onClick={() => setIsLiked(!isLiked)} className={Styles.like}>

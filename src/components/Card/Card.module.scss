@@ -62,19 +62,32 @@
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	text-fill-color: transparent;
 	height: 20px;
 	font-size: 16px;
 	transition: 0.4s;
+	font-family: Montserrat;
+	font-weight: 400;
 }
 
 .open {
 	margin-top: 20px;
-	background: linear-gradient(90deg, #FFFFFF -10.04%, #FFFFFF 129.53%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
+	width: 90%;
+	color: #FFFFFF;
 	height: 100px;
+	background: none;
+	overflow: scroll;
+	overflow-x: hidden;
+	z-index: 100;
+	-webkit-text-fill-color: currentColor;
+	&::-webkit-scrollbar {
+		background-color: #c0454500;
+		width: 5px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, 0.322);
+		border-radius: 20px;
+	}
 }
 
 .like {
@@ -84,7 +97,18 @@
 	cursor: pointer;
 }
 
+.bg {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	transition: 0.4s;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.479);
+	}
+}
+
 .active {
+	background-color: rgba(0, 0, 0, 0.479);
 	height: 450px;
 	.button {
 		svg {

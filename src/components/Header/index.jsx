@@ -2,10 +2,15 @@ import React from "react";
 import Styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogin } from "../../redux/slices/PopupSlice";
+import {
+  setLogin,
+  setProfile,
+  setRegister,
+} from "../../redux/slices/PopupSlice";
 import Logo from "../Logo";
 export default function Header() {
   const isAuth = useSelector((state) => state.user.isAuth);
+  const profileRef = React.useRef();
 
   const dispatch = useDispatch();
 
@@ -58,7 +63,11 @@ export default function Header() {
                 />
               </div>
             </div>
-            <div className={Styles.profile}>
+            <div
+              ref={profileRef}
+              onClick={() => dispatch(setProfile())}
+              className={Styles.profile}
+            >
               <div className={Styles.avatar}></div>
               <div className={Styles.arrow}>
                 <svg
@@ -86,7 +95,12 @@ export default function Header() {
               >
                 Войти
               </button>
-              <button className={Styles.register}>Регистрация</button>
+              <button
+                onClick={() => dispatch(setRegister())}
+                className={Styles.register}
+              >
+                Регистрация
+              </button>
             </div>
           </div>
         )}
