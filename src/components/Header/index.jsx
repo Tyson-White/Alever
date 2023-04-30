@@ -1,6 +1,7 @@
 import React from "react";
 import Styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
+import Profile from "../Profile";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setLogin,
@@ -63,27 +64,8 @@ export default function Header() {
                 />
               </div>
             </div>
-            <div
-              ref={profileRef}
-              onClick={() => dispatch(setProfile())}
-              className={Styles.profile}
-            >
-              <div className={Styles.avatar}></div>
-              <div className={Styles.arrow}>
-                <svg
-                  width="20"
-                  height="6"
-                  viewBox="0 0 20 10"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10.0001 10C9.19251 10 8.3849 9.68596 7.77343 9.0695L0.251167 1.4859C0.0902455 1.32174 0 1.10024 0 0.869439C0 0.638638 0.0902455 0.417142 0.251167 0.252981C0.585746 -0.0843268 1.13953 -0.0843268 1.47411 0.252981L8.99638 7.83658C9.55016 8.39488 10.4501 8.39488 11.0039 7.83658L18.5261 0.252981C18.8607 -0.0843268 19.4145 -0.0843268 19.7491 0.252981C20.0836 0.590288 20.0836 1.14859 19.7491 1.4859L12.2268 9.0695C11.6153 9.68596 10.8077 10 10.0001 10Z"
-                    fill="black"
-                  />
-                </svg>
-              </div>
-            </div>
+
+            <Profile />
           </div>
         ) : (
           <div className={Styles.header_wrapper}>

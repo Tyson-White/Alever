@@ -22,7 +22,6 @@ function App() {
       <div className="wrapper">
         <Login />
         <Register />
-        <Profile />
         <Header />
         <Filter />
         <Routes>

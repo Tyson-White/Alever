@@ -14,8 +14,8 @@ export const PopupSlice = createSlice({
 		setRegister(state) {
 			state.register = !state.register
 		},
-		setProfile(state) {
-				state.profile = !state.profile
+		setProfile(state, action) {		
+				state.profile = action.payload
 		}
 	}
 })

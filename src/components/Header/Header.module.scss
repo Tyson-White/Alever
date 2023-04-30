@@ -49,17 +49,6 @@
                 align-items: center;
             }
         }
-        .profile {
-            display: flex;
-            align-items: center;
-						cursor: pointer;
-        }
-        .avatar {            height: 73px;
-            width: 73px;
-            border-radius: 50%;
-            margin-right: 20px;
-            background: url('../../assets/img/avatar.png');
-        }
     }
 }
 .buttons {
@@ -83,6 +72,10 @@
         background-color: #6A52FF;
         color: #fff;
         border-radius: 50px;
+
+				&:hover {
+					background-color: #7a65ff;
+				}
     }
 
     .register {
@@ -90,8 +83,12 @@
         cursor: pointer;
         height: 70px;
         border: none;
-        background-color: #EDEDED;
+        background-color: #e7e7e7;
         color: #000000;
         border-radius: 50px;
+
+				&:hover {
+					background-color: #ececec;
+				}
     }
 }
