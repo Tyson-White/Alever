@@ -1,0 +1,95 @@
+.card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	overflow: hidden;
+	border-radius: 30px;
+	height: 381px;
+	transition: 0.4s ease;
+	.background_img {
+		img {
+			width: 100%;
+			height: auto;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+		
+	}
+
+	.textfield {
+		position: absolute;
+		bottom: 100px;
+		margin-left: 19px;
+		.title {
+			font-family: Montserrat;
+			font-weight: 600;
+			background: linear-gradient(90deg, #FFFFFF -10.04%, #FFFFFF 129.53%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			font-size: 20px;
+		}
+
+		
+	}
+
+	
+
+	.button {
+		position: absolute;
+		bottom: 20px;
+		left: 14px;
+		height: 54px;
+		width: 90%;
+		margin: 0 auto;
+		border: none;
+		border-radius: 30px;
+		font-size: 18px;
+		font-family: MontserratBold;
+		cursor: pointer;
+		svg {
+			margin-left: 5px;
+			position: absolute;
+			top: 25px;
+		}
+	}
+}
+
+.text {
+	background: linear-gradient(90deg, #FFFFFF 17.4%, rgba(255, 255, 255, 0) 100.38%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+	height: 20px;
+	font-size: 16px;
+	transition: 0.4s;
+}
+
+.open {
+	margin-top: 20px;
+	background: linear-gradient(90deg, #FFFFFF -10.04%, #FFFFFF 129.53%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	height: 100px;
+}
+
+.like {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	cursor: pointer;
+}
+
+.active {
+	height: 450px;
+	.button {
+		svg {
+			transform: rotate(180deg);
+		}
+	}
+	
+}

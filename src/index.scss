@@ -1,0 +1,53 @@
+
+@font-face { 
+  font-family: "MontserratBold";
+  src: url("./assets/fonts/MontserratBold/MontserratBold.eot");
+  src: url("./assets/fonts/MontserratBold/MontserratBold.eot?#iefix")format("embedded-opentype"),
+  url("./assets/fonts/MontserratBold/MontserratBold.woff") format("woff"),
+  url("./assets/fonts/MontserratBold/MontserratBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face { 
+  font-family: "MontserratRegular";
+  src: url("./assets/fonts/MontserratRegular/MontserratRegular.eot");
+  src: url("./assets/fonts/MontserratRegular/MontserratRegular.eot?#iefix")format("embedded-opentype"),
+  url("./assets/fonts/MontserratRegular/MontserratRegular.woff") format("woff"),
+  url("./assets/fonts/MontserratRegular/MontserratRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+li {
+	list-style-type: none;
+}
+a {
+	color: none;
+	text-decoration: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'MontserratBold';
+	&::-webkit-scrollbar {
+		background-color: #fff;
+		width: 13px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: #6952ff4f;
+		border-radius: 20px;
+		&:hover {
+			background-color: #6952ff;
+		}
+	}
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

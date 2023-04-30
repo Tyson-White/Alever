@@ -1,0 +1,20 @@
+.wrapper {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+.pages {
+    color: black;
+		display: flex;
+		justify-content: space-between;
+		width: 300px;
+
+		li {
+			cursor: pointer;
+		}
+
+		.active {
+			border-bottom: 2px solid #6A52FF;
+		}
+}

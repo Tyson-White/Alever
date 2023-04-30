@@ -1,0 +1,15 @@
+.wrapper {
+	padding: 40px;
+}
+	
+.angry_grid {
+		display: grid; 
+ 
+		grid-template-rows: 381px 100px 94px;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+		
+		gap: 29px;
+		height: 100%;
+
+}
+
