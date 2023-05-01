@@ -1,14 +1,16 @@
 import React from "react";
 import Styles from "./Profile.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { setProfile } from "../../redux/slices/PopupSlice";
+import { setProfile, changeProfile } from "../../redux/slices/PopupSlice";
 import { setIsAuth } from "../../redux/slices/UserSlice";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
   React.useEffect(() => {
     document.addEventListener("click", (e) => {
-      if (!e.composedPath().includes(profileRef.current)) {
+      if (e.composedPath().includes(avatarRef.current)) {
+        dispatch(changeProfile());
+      } else if (!e.composedPath().includes(profileRef.current)) {
         dispatch(setProfile(false));
       }
     });
@@ -17,14 +19,12 @@ export default function Profile() {
 
   const dispatch = useDispatch();
   const profileRef = React.useRef();
+  const avatarRef = React.useRef();
 
   return (
     <>
-      <div ref={profileRef} className={Styles.profile_container}>
-        <div
-          onClick={() => dispatch(setProfile(true))}
-          className={Styles.profile}
-        >
+      <div className={Styles.profile_container}>
+        <div ref={avatarRef} className={Styles.profile}>
           <div className={Styles.avatar}></div>
           <div className={Styles.arrow}>
             <svg
@@ -42,6 +42,7 @@ export default function Profile() {
           </div>
         </div>
         <div
+          ref={profileRef}
           className={
             isActive
               ? `${Styles.profile_block} ${Styles.active}`
@@ -66,7 +67,14 @@ export default function Profile() {
 
             <div className={Styles.advance}>
               <div className={Styles.title}>Дополнительно</div>
-              <div className={Styles.item}>Настройки</div>
+              <Link to={"/settings"}>
+                <div
+                  onClick={() => dispatch(setProfile(false))}
+                  className={Styles.item}
+                >
+                  Настройки
+                </div>
+              </Link>
               <div className={Styles.item}>
                 Ваши права на конфиденциальность
               </div>

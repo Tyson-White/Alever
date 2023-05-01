@@ -2,11 +2,11 @@ import React from "react";
 
 import Header from "./components/Header";
 import MainPage from "./pages/ManePage";
-import Filter from "./components/Filter";
+
 import StartPage from "./pages/StartPage";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Profile from "./components/Profile";
+import Settings from "./pages/Settings";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -23,10 +23,10 @@ function App() {
         <Login />
         <Register />
         <Header />
-        <Filter />
         <Routes>
           <Route path="/" element={<StartPage />} />
           <Route path="/mainpage" element={<MainPage />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
     </div>

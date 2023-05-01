@@ -3,10 +3,12 @@ import Styles from "./ManePage.module.scss";
 import Card from "../../components/Card";
 import Grid from "@mui/material/Grid";
 import Cards from "../../assets/cards.json";
+import Filter from "../../components/Filter";
 export default function ManePage() {
   return (
     <>
       <div className={Styles.wrapper}>
+        <Filter />
         <Grid
           container
           spacing={{ xs: 4, md: 3 }}

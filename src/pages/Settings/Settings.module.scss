@@ -1,0 +1,22 @@
+.wrapper {
+	display: flex;
+}
+
+.sidebar {
+	width: 540px;
+	height: 100%;
+
+	.list {
+		display: inline-block;
+		flex-direction: column;
+		li {
+			cursor: pointer;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+
+.active {
+	border-bottom: 2px solid #6A52FF;
+}

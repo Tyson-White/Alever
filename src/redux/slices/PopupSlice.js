@@ -14,12 +14,15 @@ export const PopupSlice = createSlice({
 		setRegister(state) {
 			state.register = !state.register
 		},
-		setProfile(state, action) {		
-				state.profile = action.payload
+		setProfile(state, action) {	
+				state.profile = action.payload				
+		},
+		changeProfile(state) {
+			state.profile = !state.profile
 		}
 	}
 })
 
-export const {setLogin, setRegister, setProfile} = PopupSlice.actions
+export const {setLogin, setRegister, setProfile, changeProfile} = PopupSlice.actions
 
 export default PopupSlice.reducer
