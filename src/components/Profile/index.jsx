@@ -2,13 +2,13 @@ import React from "react";
 import Styles from "./Profile.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { setProfile, changeProfile } from "../../redux/slices/PopupSlice";
-import {endSession, getSession, isLoggedIn} from "../../firebase/session.js";
+import { endSession, getSession, isLoggedIn } from "../../firebase/session.js";
 import { setIsAuth } from "../../redux/slices/UserSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile() {
-  const navigate = useNavigate()
-  var activeUser = useSelector(state => state.user.activeUser)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   React.useEffect(() => {
     document.addEventListener("click", (e) => {
       if (e.composedPath().includes(avatarRef.current)) {
@@ -23,20 +23,19 @@ export default function Profile() {
     if (!isLoggedIn()) {
       navigate("/manepage");
     }
-  
+
     let session = getSession();
   }, [navigate]);
-  
+
   const onLogout = () => {
     endSession();
     navigate("/");
     dispatch(setIsAuth());
     dispatch(setProfile());
-  }
-  
-  const isActive = useSelector((state) => state.popup.profile);
+  };
 
-  const dispatch = useDispatch();
+  const isActive = useSelector((state) => state.popup.profile);
+  const activeUser = useSelector((state) => state.user.activeUser);
   const profileRef = React.useRef();
   const avatarRef = React.useRef();
 
@@ -102,8 +101,7 @@ export default function Profile() {
               <div
                 onClick={() => {
                   {
-                    
-                    onLogout()
+                    onLogout();
                   }
                 }}
                 className={Styles.logout}

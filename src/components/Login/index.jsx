@@ -1,50 +1,37 @@
 import React from "react";
 import Styles from "./Login.module.scss";
-import axios from "axios";
+
 import { Link, useNavigate } from "react-router-dom";
 import { signInUser } from "../../firebase/firebase.js";
 import { getSession } from "../../firebase/session.js";
 import { startSession } from "../../firebase/session.js";
 import { setLogin } from "../../redux/slices/PopupSlice";
-import { setIsAuth, setActiveUser } from "../../redux/slices/UserSlice";
+import { setIsAuth } from "../../redux/slices/UserSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Login() {
   const isActive = useSelector((state) => state.popup.login);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const [error, setError] = React.useState(false)
+  const navigate = useNavigate();
+  const [error, setError] = React.useState(false);
 
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const isAuth = useSelector(state => state.user.isAuth)
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const isAuth = useSelector((state) => state.user.isAuth);
   let session = getSession();
 
-  const userFetch = () => {
-    const url = 'https://6450f64ce1f6f1bb22a3c634.mockapi.io/users?search=' + session.email
-    axios.get(url)   
-      .then(res => {
-        dispatch(setActiveUser(res.data))
-      })
-    
-     
-    navigate("/mainpage");
-    dispatch(setLogin());
-    dispatch(setIsAuth());
-  }
-
-  const onSubmit = async () => {    
+  const onSubmit = async () => {
     try {
       let loginResponse = await signInUser(email, password);
       startSession(loginResponse.user);
-      const token = session.accessToken
-      userFetch()
-      
+      navigate("/mainpage");
+      dispatch(setLogin());
+      dispatch(setIsAuth());
     } catch (error) {
       console.error(error.message);
-      setError(true)
+      setError(true);
     }
-  }
+  };
 
   return (
     <>
@@ -80,7 +67,7 @@ export default function Login() {
             <form action="" className={Styles.login_form}>
               <div className={Styles.input_name}>Адрес электронной почты</div>
               <input
-              onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 placeholder="example@mail.ru"
                 className={Styles.email}
@@ -95,11 +82,13 @@ export default function Login() {
               />
 
               <div className={Styles.forget_password}>Забыли пароль?</div>
-              
-              {error && <div className={Styles.error}>
-                Имя пользователя или пароль неверны
-              </div>}
-              
+
+              {error && (
+                <div className={Styles.error}>
+                  Имя пользователя или пароль неверны
+                </div>
+              )}
+
               <Link to={isAuth && "/mainpage"}>
                 <button onClick={() => onSubmit()} type="submit">
                   Войти

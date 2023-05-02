@@ -1,22 +1,37 @@
 import React from "react";
 import Styles from "./Register.module.scss";
-import {createUser} from "../../firebase/firebase.js";
-import {startSession} from "../../firebase/session.js";
+import { createUser } from "../../firebase/firebase.js";
+import { startSession } from "../../firebase/session.js";
 import { Link, useNavigate } from "react-router-dom";
 import { setRegister } from "../../redux/slices/PopupSlice";
 import { setIsAuth } from "../../redux/slices/UserSlice";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 export default function Register() {
   const isActive = useSelector((state) => state.popup.register);
   const dispatch = useDispatch();
-  const isAuth = useSelector(state => state.user.isAuth)
-  const [error, setError] = React.useState(false)
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const navigate = useNavigate()
+  const isAuth = useSelector((state) => state.user.isAuth);
+  const [error, setError] = React.useState(false);
 
-  const onSubmit = async () => {   
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [dateOfBirth, setDateOfBirth] = React.useState("");
+  const navigate = useNavigate();
+
+  const createNewUser = () => {
+    const newUser = {
+      userName: name,
+      userEmail: email,
+      dateOfBirth: dateOfBirth,
+    };
+
+    axios.post("https://6450f64ce1f6f1bb22a3c634.mockapi.io/users", newUser);
+  };
+
+  const onSubmit = async () => {
+    createNewUser();
     try {
       let registerResponse = await createUser(email, password);
       startSession(registerResponse.user);
@@ -25,7 +40,7 @@ export default function Register() {
       dispatch(setIsAuth());
     } catch (error) {
       console.error(error.message);
-      setError(true)
+      setError(true);
     }
   };
 
@@ -79,15 +94,17 @@ export default function Register() {
 
               <div className={Styles.input_name}>Дата рождения</div>
               <input
+                onChange={(e) => setDateOfBirth(e.target.value)}
                 type="text"
                 placeholder="дд мм гг"
                 className={Styles.date}
               />
 
-              <div className={Styles.input_name}>Имя</div>
+              <div className={Styles.input_name}>ФИО</div>
               <input
+                onChange={(e) => setName(e.target.value)}
                 type="text"
-                placeholder="Ваше имя"
+                placeholder="Ф.И.О"
                 className={Styles.date}
               />
 
@@ -95,9 +112,11 @@ export default function Register() {
                 Уже есть аккаунт? <span>Войти.</span>
               </div>
 
-              {error && <div className={Styles.error}>
-                Неправильный email или пароль
-              </div>}
+              {error && (
+                <div className={Styles.error}>
+                  Неправильный email или пароль
+                </div>
+              )}
               <Link to={isAuth && "/mainpage"}>
                 <button onClick={() => onSubmit()} type="submit">
                   Регистрация
