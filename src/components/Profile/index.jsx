@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const navigate = useNavigate()
+  var activeUser = useSelector(state => state.user.activeUser)
   React.useEffect(() => {
     document.addEventListener("click", (e) => {
       if (e.composedPath().includes(avatarRef.current)) {
@@ -24,8 +25,6 @@ export default function Profile() {
     }
   
     let session = getSession();
-  
-    console.log("Your access token is: " + session.accessToken);
   }, [navigate]);
   
   const onLogout = () => {
@@ -74,9 +73,9 @@ export default function Profile() {
             <div className={Styles.profile_info}>
               <div className={Styles.avatar}></div>
               <div className={Styles.info}>
-                <div className={Styles.name}>Dyan Reifschneider</div>
+                <div className={Styles.name}>{activeUser.userName}</div>
                 <div className={Styles.acc_type}>Пользовательский аккаунт</div>
-                <div className={Styles.email}>example@gmail.com</div>
+                <div className={Styles.email}>{activeUser.userEmail}</div>
               </div>
             </div>
 

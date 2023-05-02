@@ -1,10 +1,12 @@
 import React from "react";
 import Styles from "./Login.module.scss";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { signInUser } from "../../firebase/firebase.js";
+import { getSession } from "../../firebase/session.js";
 import { startSession } from "../../firebase/session.js";
 import { setLogin } from "../../redux/slices/PopupSlice";
-import { setIsAuth } from "../../redux/slices/UserSlice";
+import { setIsAuth, setActiveUser } from "../../redux/slices/UserSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Login() {
@@ -16,14 +18,28 @@ export default function Login() {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const isAuth = useSelector(state => state.user.isAuth)
+  let session = getSession();
+
+  const userFetch = () => {
+    const url = 'https://6450f64ce1f6f1bb22a3c634.mockapi.io/users?search=' + session.email
+    axios.get(url)   
+      .then(res => {
+        dispatch(setActiveUser(res.data))
+      })
+    
+     
+    navigate("/mainpage");
+    dispatch(setLogin());
+    dispatch(setIsAuth());
+  }
 
   const onSubmit = async () => {    
     try {
       let loginResponse = await signInUser(email, password);
       startSession(loginResponse.user);
-      navigate("/mainpage");
-      dispatch(setLogin());
-      dispatch(setIsAuth());
+      const token = session.accessToken
+      userFetch()
+      
     } catch (error) {
       console.error(error.message);
       setError(true)
