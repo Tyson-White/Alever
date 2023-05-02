@@ -1,6 +1,7 @@
 import React from "react";
 import Styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
+import {getSession} from "../../firebase/session.js";
 import Profile from "../Profile";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,13 +13,13 @@ import Logo from "../Logo";
 export default function Header() {
   const isAuth = useSelector((state) => state.user.isAuth);
   const profileRef = React.useRef();
-
+  const session = getSession()
   const dispatch = useDispatch();
 
   return (
     <>
       <div className={Styles.header}>
-        {isAuth ? (
+        {session.accessToken ? (
           <div className={Styles.header_wrapper}>
             <div className={Styles.main}>
               <Logo />

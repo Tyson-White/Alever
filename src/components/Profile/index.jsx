@@ -2,10 +2,12 @@ import React from "react";
 import Styles from "./Profile.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { setProfile, changeProfile } from "../../redux/slices/PopupSlice";
+import {endSession, getSession, isLoggedIn} from "../../firebase/session.js";
 import { setIsAuth } from "../../redux/slices/UserSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const navigate = useNavigate()
   React.useEffect(() => {
     document.addEventListener("click", (e) => {
       if (e.composedPath().includes(avatarRef.current)) {
@@ -15,6 +17,24 @@ export default function Profile() {
       }
     });
   }, []);
+
+  React.useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate("/manepage");
+    }
+  
+    let session = getSession();
+  
+    console.log("Your access token is: " + session.accessToken);
+  }, [navigate]);
+  
+  const onLogout = () => {
+    endSession();
+    navigate("/");
+    dispatch(setIsAuth());
+    dispatch(setProfile());
+  }
+  
   const isActive = useSelector((state) => state.popup.profile);
 
   const dispatch = useDispatch();
@@ -83,8 +103,8 @@ export default function Profile() {
               <div
                 onClick={() => {
                   {
-                    dispatch(setIsAuth());
-                    dispatch(setProfile());
+                    
+                    onLogout()
                   }
                 }}
                 className={Styles.logout}
