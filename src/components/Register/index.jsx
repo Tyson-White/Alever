@@ -1,6 +1,8 @@
 import React from "react";
 import Styles from "./Register.module.scss";
-import { Link } from "react-router-dom";
+import {createUser} from "../../firebase/firebase.js";
+import {startSession} from "../../firebase/session.js";
+import { Link, useNavigate } from "react-router-dom";
 import { setRegister } from "../../redux/slices/PopupSlice";
 import { setIsAuth } from "../../redux/slices/UserSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,10 +10,23 @@ import { useSelector, useDispatch } from "react-redux";
 export default function Register() {
   const isActive = useSelector((state) => state.popup.register);
   const dispatch = useDispatch();
+  const isAuth = useSelector(state => state.user.isAuth)
+  const [error, setError] = React.useState(false)
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const navigate = useNavigate()
 
-  const register = () => {
-    dispatch(setRegister());
-    dispatch(setIsAuth());
+  const onSubmit = async () => {   
+    try {
+      let registerResponse = await createUser(email, password);
+      startSession(registerResponse.user);
+      navigate("/mainpage");
+      dispatch(setRegister());
+      dispatch(setIsAuth());
+    } catch (error) {
+      console.error(error.message);
+      setError(true)
+    }
   };
 
   return (
@@ -48,6 +63,7 @@ export default function Register() {
             <form action="" className={Styles.login_form}>
               <div className={Styles.input_name}>Адрес электронной почты</div>
               <input
+                onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 placeholder="example@mail.ru"
                 className={Styles.email}
@@ -55,6 +71,7 @@ export default function Register() {
 
               <div className={Styles.input_name}>Пароль</div>
               <input
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 placeholder="Придумайте пароль"
                 className={Styles.password}
@@ -77,8 +94,12 @@ export default function Register() {
               <div className={Styles.forget_password}>
                 Уже есть аккаунт? <span>Войти.</span>
               </div>
-              <Link to={"/mainpage"}>
-                <button onClick={() => register()} type="submit">
+
+              {error && <div className={Styles.error}>
+                Неправильный email или пароль
+              </div>}
+              <Link to={isAuth && "/mainpage"}>
+                <button onClick={() => onSubmit()} type="submit">
                   Регистрация
                 </button>
               </Link>

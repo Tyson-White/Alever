@@ -1,6 +1,8 @@
 import React from "react";
 import Styles from "./Login.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signInUser } from "../../firebase/firebase.js";
+import { startSession } from "../../firebase/session.js";
 import { setLogin } from "../../redux/slices/PopupSlice";
 import { setIsAuth } from "../../redux/slices/UserSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,11 +10,25 @@ import { useSelector, useDispatch } from "react-redux";
 export default function Login() {
   const isActive = useSelector((state) => state.popup.login);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const [error, setError] = React.useState(false)
 
-  const login = () => {
-    dispatch(setLogin());
-    dispatch(setIsAuth());
-  };
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const isAuth = useSelector(state => state.user.isAuth)
+
+  const onSubmit = async () => {    
+    try {
+      let loginResponse = await signInUser(email, password);
+      startSession(loginResponse.user);
+      navigate("/mainpage");
+      dispatch(setLogin());
+      dispatch(setIsAuth());
+    } catch (error) {
+      console.error(error.message);
+      setError(true)
+    }
+  }
 
   return (
     <>
@@ -48,6 +64,7 @@ export default function Login() {
             <form action="" className={Styles.login_form}>
               <div className={Styles.input_name}>Адрес электронной почты</div>
               <input
+              onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 placeholder="example@mail.ru"
                 className={Styles.email}
@@ -55,14 +72,20 @@ export default function Login() {
 
               <div className={Styles.input_name}>Пароль</div>
               <input
+                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 placeholder="00000000"
                 className={Styles.password}
               />
 
               <div className={Styles.forget_password}>Забыли пароль?</div>
-              <Link to={"/mainpage"}>
-                <button onClick={() => login()} type="submit">
+              
+              {error && <div className={Styles.error}>
+                Имя пользователя или пароль неверны
+              </div>}
+              
+              <Link to={isAuth && "/mainpage"}>
+                <button onClick={() => onSubmit()} type="submit">
                   Войти
                 </button>
               </Link>
