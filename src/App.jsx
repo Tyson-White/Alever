@@ -2,7 +2,7 @@ import React from "react";
 
 import Header from "./components/Header";
 import MainPage from "./pages/ManePage";
-import { getSession } from "./firebase/session.js";
+import { getSession, endSession } from "./firebase/session.js";
 import StartPage from "./pages/StartPage";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -20,11 +20,23 @@ function App() {
   const userFetch = async () => {
     dispatch(setIsLoading(true));
     const email = session.email;
-    const res = await axios.get(
-      `https://6450f64ce1f6f1bb22a3c634.mockapi.io/users?search=${email}`
-    );
-    dispatch(setActiveUser(res.data[0]));
-    dispatch(setIsLoading(false));
+    try {
+      const res = await axios.get(
+        `https://6450f64ce1f6f1bb22a3c634.mockapi.io/users?search=${email}`
+      );
+
+      if (res.data.length < 1) {
+        alert("Пользователь не найден");
+        navigate("/");
+        endSession();
+      } else {
+        dispatch(setActiveUser(res.data[0]));
+      }
+      dispatch(setIsLoading(false));
+    } catch {
+      alert("Произошла ошибка");
+      navigate("/");
+    }
   };
 
   React.useEffect(() => {

@@ -117,11 +117,9 @@ export default function Register() {
                   Неправильный email или пароль
                 </div>
               )}
-              <Link to={isAuth && "/mainpage"}>
-                <button onClick={() => onSubmit()} type="submit">
-                  Регистрация
-                </button>
-              </Link>
+              <button onClick={() => onSubmit()} type="submit">
+                Регистрация
+              </button>
 
               <div className={Styles.agreement}>
                 Продолжая, вы соглашаетесь с положениями основных документов
